@@ -46,11 +46,17 @@ def analyze_tasks(
     Empty means/rates return 0.0 for the academic interface, before formatting.
     """
     zone = _product_zone(product_time_zone)
+    try:
+        records = iter(tasks)
+    except TypeError as error:
+        raise TaskValidationError(
+            "tasks must be an iterable of Task records"
+        ) from error
     total = completed = eligible = late = 0
     duration_us = {False: 0, True: 0}
     completed_by_priority = {False: 0, True: 0}
 
-    for index, task in enumerate(tasks):
+    for index, task in enumerate(records):
         created_at, completed_at = _validated_instants(task, index)
         if task.deleted:
             continue
@@ -87,7 +93,7 @@ def analyze_tasks(
                 duration_us[False], completed_by_priority[False]
             ),
         },
-        "taxa_atraso_percentual": late / eligible * 100 if eligible else 0.0,
+        "taxa_atraso_percentual": late * 100 / eligible if eligible else 0.0,
     }
 
 
@@ -96,7 +102,7 @@ def _product_zone(key: str) -> ZoneInfo:
         raise TaskValidationError("product_time_zone must be an IANA zone key")
     try:
         return ZoneInfo(key)
-    except (ZoneInfoNotFoundError, ValueError) as error:
+    except (ZoneInfoNotFoundError, ValueError, OSError) as error:
         raise TaskValidationError(
             "product_time_zone must be a valid IANA zone key"
         ) from error

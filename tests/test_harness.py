@@ -117,7 +117,7 @@ def test_req_024_eligible_population_and_unrounded_rate() -> None:
         product_time_zone=ZONE,
     )
 
-    assert result["taxa_atraso_percentual"] == pytest.approx(100 / 3)
+    assert result["taxa_atraso_percentual"] == 100 / 3
     assert result["taxa_atraso_percentual"] != 33.3
     assert (
         with_ineligible["taxa_atraso_percentual"]
@@ -231,7 +231,9 @@ def test_malformed_records_raise_specific_validation_error(
         analyze_tasks([invalid], product_time_zone=ZONE)
 
 
-@pytest.mark.parametrize("zone", ["", "Invalid/Zone", "/etc/localtime", None])
+@pytest.mark.parametrize(
+    "zone", ["", "Invalid/Zone", "America", "/etc/localtime", None]
+)
 def test_invalid_product_zone_is_rejected_even_for_empty_input(
     zone: str,
 ) -> None:
@@ -266,3 +268,11 @@ def test_mean_keeps_multi_day_and_sub_second_precision(
     )
 
     assert result["tempo_medio_conclusao_horas"] == hours
+
+
+@pytest.mark.parametrize("collection", [None, 5])
+def test_non_iterable_collection_raises_validation_error(
+    collection: object,
+) -> None:
+    with pytest.raises(TaskValidationError, match="tasks must be"):
+        analyze_tasks(collection, product_time_zone=ZONE)
