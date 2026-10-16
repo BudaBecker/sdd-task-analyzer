@@ -328,6 +328,38 @@ def test_the_installed_package_carries_the_initial_schema(
     assert tables == EXPECTED_TABLES
 
 
+def test_installed_batch_analysis_runs_outside_the_checkout(
+    installed_python: Path, tmp_path: Path
+) -> None:
+    code = """
+import json
+from datetime import UTC, datetime, timedelta
+import task_analyzer
+from task_analyzer import Task, TaskValidationError, analyze_tasks
+
+created = datetime(2026, 9, 14, tzinfo=UTC)
+result = analyze_tasks(
+    [Task(created, created + timedelta(hours=2))],
+    product_time_zone='America/Sao_Paulo',
+)
+assert result['tempo_medio_conclusao_horas'] == 2.0
+try:
+    analyze_tasks([Task(created, created - timedelta(seconds=1))],
+                  product_time_zone='UTC')
+except TaskValidationError:
+    pass
+else:
+    raise AssertionError('Invalid chronology was accepted')
+print(json.dumps({'module': task_analyzer.__file__, 'result': result}))
+"""
+    published = json.loads(_run_installed(installed_python, code, tmp_path))
+    location = Path(published["module"])
+
+    assert installed_python.parent.parent in location.parents
+    assert REPOSITORY_ROOT not in location.parents
+    assert published["result"]["total_concluidas"] == 1
+
+
 def test_the_installed_initializer_creates_a_disposable_database(
     installed_python: Path, tmp_path: Path
 ) -> None:
