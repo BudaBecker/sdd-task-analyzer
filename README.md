@@ -19,6 +19,21 @@ uv run python -m pytest
 
 uv creates the ignored `.venv` and installs this package plus development tools. `pyproject.toml` declares dependencies; `uv.lock` records their resolved versions. `requirements.txt` is a generated course deliverable, not a second dependency source. Regenerate it after dependency changes with `uv export --locked --no-emit-project --format requirements-txt --output-file requirements.txt`. Routine development uses `uv run`; activation is optional.
 
+### Without uv
+
+For the conventional course evaluation path on Windows:
+
+```powershell
+py -3.13 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pip install --no-deps -e .
+.venv\Scripts\python -m pytest tests/test_harness.py -v
+```
+
+The hashed requirements export installs dependencies only. Install the project
+separately so both `task_analyzer` and `task_analyzer_server` are importable.
+Keep `-e .` out of the hashed export: pip cannot verify editable project hashes.
+
 ## Phase 2 batch analysis
 
 Read [the contract](specs/task_analyzer_spec.md) and [AI context rules](CONTEXT_RULES.md).
