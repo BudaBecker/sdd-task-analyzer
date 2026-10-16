@@ -7,7 +7,7 @@ uv sync --locked
   PASS - rebuilt the editable package, no lock change required.
 
 uv run python -m pytest tests/test_harness.py -v
-  30 passed in 0.07s
+  35 passed in 0.07s
 
 uv run ruff format --check src tests
   39 files already formatted
@@ -19,8 +19,8 @@ uv run python -m mypy --strict
   Success: no issues found in 12 source files
 
 uv run python -m pytest -q
-  518 passed, 2 warnings in 61.95s (0:01:01)
-  Includes the 487 original server regression cases, 30 batch cases and one
+  523 passed, 2 warnings in 81.59s (0:01:21)
+  Includes the 487 original server regression cases, 35 batch cases and one
   new installed-wheel batch smoke test outside the checkout.
   Warnings: Starlette/httpx TestClient integration and anyio BlockingPortal alias
   deprecations in third-party dependencies.
@@ -32,6 +32,26 @@ uv build
   Successfully built dist/task_analyzer_server-0.1.0.tar.gz
   Successfully built dist/task_analyzer_server-0.1.0-py3-none-any.whl
 
+Review correction evidence
+  Before the source fix, the strengthened harness produced 4 failed, 31 passed:
+  exact overdue rate, directory zone "America", collection None, collection 5.
+  After the fix, all 35 harness cases pass.
+  Temporary copies outside the checkout were checked with the same harness:
+    Control: 35 passed.
+    Discard days using timedelta.seconds: 2 failed, 33 passed.
+    Round duration mean to two decimals: 2 failed, 33 passed.
+    Truncate duration to integer seconds: 1 failed, 34 passed.
+  A separate smoke check confirmed TypeError during iterable consumption
+  propagates unchanged. Only obtaining the iterator is wrapped.
+
+README "Without uv" installation route
+  Created a fresh disposable Python 3.13 venv outside the checkout using venv.
+  Installed the hashed requirements with pip, then the project with
+  pip install --no-deps -e <checkout>. Ran the harness from that environment:
+  35 passed in 0.09s. No uv command was used inside that installation route.
+
 Limits: actual Ubuntu interpreter/lock, Tailscale access, Windows desktop UI,
-human PR review, terminal screenshot, YouTube video and academic submission
-were not verified by these commands. No real database was initialized/modified.
+human PR review/merge, terminal screenshot, required Docs/YouTube links and
+academic submission were not verified by these commands. Windows trailing-space
+zone acceptance remains a known shared limitation; the server's zone OSError
+handling needs a separate fix. No real database was initialized/modified.

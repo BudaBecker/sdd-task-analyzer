@@ -60,12 +60,13 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 
 ## Handoff
 
-- **Work**: Phase 2 batch analysis implemented. Delivery 1B is merged in GitHub PR #1. The original server contracts and 487 regression cases are preserved.
+- **Work**: Phase 2 batch analysis and independent-review corrections implemented: exact rate arithmetic, specific errors for non-iterable collections/zone OSError, stronger duration evidence and corrected submission/governance documentation. The original server contracts and 487 regression cases are preserved.
 - **Branch**: `feat/bootcamp-phase-two` from current `origin/main`; local `main` has not been moved.
-- **Next step**: Human review of [PR #4](https://github.com/BudaBecker/sdd-task-analyzer/pull/4), actual screenshots, video recording/YouTube URL and final academic submission. Use the [submission guide](../docs/phase-two/submission.md); the PDF remains a draft until the missing evidence is supplied.
-- **Result**: 518 tests passed (including 30 batch cases and the new installed-wheel batch check), plus Ruff, strict mypy, dependency compatibility and source/wheel builds. Two third-party deprecation warnings remain. The public repository was renamed to `sdd-task-analyzer`; no schema change or server endpoint was added.
+- **Next step**: The user records their own review/comment in [PR #4](https://github.com/BudaBecker/sdd-task-analyzer/pull/4), merges into `main` and retains the branch. Then verify the default-branch tree and generate the final PDF using `main` links, required Phase 1 Docs/YouTube URLs and actual screenshots. The independent review does not count as human review. Use the [submission guide](../docs/phase-two/submission.md).
+- **Result**: 523 tests passed (35 harness cases, 487 server cases and the installed-wheel batch check), plus Ruff, strict mypy, dependency compatibility and source/wheel builds. Mutation checks detect day loss, mean rounding and second truncation. Two third-party deprecation warnings remain. The PDF is still a draft; no schema change or server endpoint was added.
 - **Authorization**: Implementation, local commits and pushes are authorized for Phase 2. Merge, deployment and real-database operations are not.
 - **External checks**: Actual Ubuntu interpreter/lock and Tailscale access remain pending; a passing local suite does not claim target-host or private-access verification.
+- **Follow-up**: In a separate `fix/` branch, handle zone-construction `OSError` in the server's `_confirm_known_zone`; it is unchanged here. Windows trailing-space zone acceptance remains a known limitation shared by batch and server.
 
 ## Open questions
 
