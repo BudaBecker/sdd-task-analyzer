@@ -4,7 +4,7 @@ A personal learning and portfolio project for task management and productivity a
 
 ## Current project status
 
-Delivery 1A implements task creation, pending-task editing, validation, uniqueness, fixed product time and recoverable operation results. Delivery 1B adds the remaining server-side lifecycle: completing a task, editing the observations of a completed task, reopening it and deleting a managed task. The Windows client, deadline emphasis and productivity analysis are not implemented.
+Delivery 1A implements task creation, pending-task editing, validation, uniqueness, fixed product time and recoverable operation results. Delivery 1B adds the remaining server-side lifecycle: completing a task, editing the observations of a completed task, reopening it and deleting a managed task. The Bootcamp III Phase 2 delivery adds a read-only batch analysis module and its test harness. The Windows client, deadline emphasis and server metrics API are not implemented.
 
 Stack: Python 3.13+, FastAPI, SQLite and uv. Dedicated Ubuntu hosting and private Tailscale access remain planned; actual host verification has not run.
 
@@ -14,10 +14,33 @@ Install uv, then run from the repository root:
 
 ```powershell
 uv sync --locked
-uv run pytest tests/server
+uv run python -m pytest
 ```
 
-uv creates the ignored `.venv` and installs this package plus development tools. `pyproject.toml` declares dependencies; `uv.lock` records their resolved versions. Do not edit the lock manually or create a second requirements source. Routine development uses `uv run`; activation is optional.
+uv creates the ignored `.venv` and installs this package plus development tools. `pyproject.toml` declares dependencies; `uv.lock` records their resolved versions. `requirements.txt` is a generated course deliverable, not a second dependency source. Regenerate it after dependency changes with `uv export --locked --no-emit-project --format requirements-txt --output-file requirements.txt`. Routine development uses `uv run`; activation is optional.
+
+## Phase 2 batch analysis
+
+Read [the contract](specs/task_analyzer_spec.md) and [AI context rules](CONTEXT_RULES.md).
+The module analyzes typed records without accessing a database:
+
+```python
+from datetime import UTC, datetime, timedelta
+from task_analyzer import Task, analyze_tasks
+
+created = datetime(2026, 9, 14, 8, tzinfo=UTC)
+result = analyze_tasks(
+    [Task(created, created + timedelta(hours=2), priority=True)],
+    product_time_zone="America/Sao_Paulo",
+)
+assert result["tempo_medio_conclusao_horas"] == 2.0
+```
+
+Run the course scenarios with `uv run python -m pytest tests/test_harness.py -v`.
+Priority is an explicit batch input, with `priority` and `non_priority` result
+groups. Empty averages/rates return `0.0`; this numeric interface does not change
+the product dashboard's N/A rule. See the [submission guide](docs/phase-two/submission.md)
+for verification evidence, the PR and the remaining video/submission steps.
 
 ## Run the server locally
 
@@ -37,10 +60,10 @@ The lifecycle commands take the same envelope and an exact JSON body: `POST /v1/
 ## Quality checks
 
 ```powershell
-uv run ruff format --check src/task-analyzer-server tests/server
-uv run ruff check src/task-analyzer-server tests/server
-uv run mypy --strict src/task-analyzer-server/task_analyzer_server
-uv run pytest tests/server
+uv run ruff format --check src tests
+uv run ruff check src tests
+uv run python -m mypy --strict
+uv run python -m pytest
 uv pip check
 uv build
 ```
@@ -56,8 +79,8 @@ The suite includes isolated SQLite, restart, concurrency and installed-wheel tes
 - [1B specification](.specs/features/task-lifecycle-deletion/spec.md) and [design](.specs/features/task-lifecycle-deletion/design.md): the task lifecycle and deletion delta.
 - [Deployment](docs/architecture/deployment/server.md): the separately authorized Ubuntu/Tailscale procedure.
 
-Application modules live in `src/task-analyzer-server/task_analyzer_server/`; tests live in `tests/server/`. The bundled `.ai/skills/tlc-spec-driven/` is optional historical study material, not the active development workflow. Old plans and audit details remain available in Git at `8c68d6a`.
+Server modules live in `src/task-analyzer-server/task_analyzer_server/`; server tests live in `tests/server/`. The course module is `src/task_analyzer.py`, its contract is `specs/task_analyzer_spec.md`, and its harness is `tests/test_harness.py`. Both modules ship in the same wheel. The bundled `.ai/skills/tlc-spec-driven/` is optional historical study material, not the active development workflow. Old plans and audit details remain available in Git at `8c68d6a`.
 
 ## Open questions
 
-Target-host values, Windows client technology and later feature contracts remain open. Deadline emphasis and productivity analysis are not started.
+Target-host values, Windows client technology and later feature contracts remain open. Deadline emphasis and the server metrics API are not started. Phase 2 video recording and academic submission remain user steps.

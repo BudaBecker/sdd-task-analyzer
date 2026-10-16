@@ -1,0 +1,37 @@
+Phase 2 verification record - 2026-10-16 (America/Sao_Paulo)
+
+This is a recorded text summary of commands actually executed in the Windows
+checkout, not a terminal screenshot or a claim of human review.
+
+uv sync --locked
+  PASS - rebuilt the editable package, no lock change required.
+
+uv run python -m pytest tests/test_harness.py -v
+  30 passed in 0.07s
+
+uv run ruff format --check src tests
+  39 files already formatted
+
+uv run ruff check src tests
+  All checks passed!
+
+uv run python -m mypy --strict
+  Success: no issues found in 12 source files
+
+uv run python -m pytest -q
+  518 passed, 2 warnings in 61.95s (0:01:01)
+  Includes the 487 original server regression cases, 30 batch cases and one
+  new installed-wheel batch smoke test outside the checkout.
+  Warnings: Starlette/httpx TestClient integration and anyio BlockingPortal alias
+  deprecations in third-party dependencies.
+
+uv pip check
+  Checked 34 packages; all installed packages are compatible.
+
+uv build
+  Successfully built dist/task_analyzer_server-0.1.0.tar.gz
+  Successfully built dist/task_analyzer_server-0.1.0-py3-none-any.whl
+
+Limits: actual Ubuntu interpreter/lock, Tailscale access, Windows desktop UI,
+human PR review, terminal screenshot, YouTube video and academic submission
+were not verified by these commands. No real database was initialized/modified.

@@ -101,15 +101,13 @@ completion field, with no partial result or input mutation.
 
 ## Steps and verification
 
-- [ ] Implement the module and package it alongside the existing server.
-- [ ] Translate both scenarios and meaningful boundaries into `tests/test_harness.py`.
-- [ ] Run the harness, the server regression suite, README checks and an
+- [x] Implement the module and package it alongside the existing server.
+- [x] Translate both scenarios and meaningful boundaries into `tests/test_harness.py`.
+- [x] Run the harness, the server regression suite, README checks and an
   installed-wheel analysis smoke test outside the checkout.
-- [ ] Publish commits and a documented PR; prepare evidence and a video script.
+- [x] Publish commits and a documented PR; prepare verification notes and a video script.
 
 ## Open questions
 
-- The brief names the public repository `sdd-task-analyzer`; the existing project
-  is published as `task-analyzer`. Record any remaining naming deviation honestly.
 - The user must record the required five-minute video with visible camera/audio
   and provide its YouTube URL before final submission.
