@@ -248,3 +248,21 @@ def test_pce_051_supported_deadline_bounds(deadline: date) -> None:
     assert result["taxa_atraso_percentual"] == (
         100.0 if deadline == date.min else 0.0
     )
+
+
+@pytest.mark.parametrize(
+    ("durations", "hours"),
+    [
+        ((timedelta(hours=26, minutes=30), timedelta(minutes=20)), 161 / 12),
+        ((timedelta(microseconds=1),), 1 / 3_600_000_000),
+    ],
+)
+def test_mean_keeps_multi_day_and_sub_second_precision(
+    durations: tuple[timedelta, ...], hours: float
+) -> None:
+    result = analyze_tasks(
+        [Task(CREATED, CREATED + duration) for duration in durations],
+        product_time_zone=ZONE,
+    )
+
+    assert result["tempo_medio_conclusao_horas"] == hours
