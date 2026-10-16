@@ -40,13 +40,22 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 - **Date**: 2026-09-14.
 - **Status**: active.
 
+### AD-005
+
+- **Decision**: Deliver the Bootcamp III Phase 2 batch interface in `src/task_analyzer.py`, governed by [its contract](../specs/task_analyzer_spec.md) and [context rules](../CONTEXT_RULES.md). Reuse the approved time rules. Course-only explicit priority grouping and numeric empty averages stay in the batch interface, without changing server persistence or desktop presentation contracts.
+- **Reason**: The user authorized executing the Phase 2 gap assessment, commits and pushes on 2026-10-16, and identified `.specs/` as the Phase 1 source. Its existing feature contracts remain authoritative; the course's additional function boundary is documented explicitly.
+- **Trade-off**: A batch interface satisfies the academic exercise without introducing priority management into the product or claiming a metrics API exists.
+- **Scope**: Phase 2 implementation, harness, packaging and submission preparation. Merge, deployment and real-database operations remain outside authorization.
+- **Date**: 2026-10-16.
+- **Status**: active.
+
 ## Handoff
 
-- **Work**: Delivery 1B implemented against its approved [specification](features/task-lifecycle-deletion/spec.md) and [Design delta](features/task-lifecycle-deletion/design.md): completion, completed-observation editing, reopening and deletion.
-- **Branch**: `docs/task-lifecycle-deletion` from published `main`.
-- **Next step**: Review the delivered lifecycle commands, then choose the next feature. Deadline emphasis and productivity analysis are unstarted, and the Windows client remains undecided.
-- **Result**: The four commands reuse the 1A envelope, `BEGIN IMMEDIATE` transaction and operation ledger; no schema change or migration was needed. The suite grew from 393 to 487 cases and the README quality and build checks pass.
-- **Authorization**: The 1B implementation and its local commits are authorized. No push, merge or deployment is.
+- **Work**: Phase 2 batch analysis in progress. Delivery 1B is merged in GitHub PR #1. The original server contracts and 487 regression cases are preserved.
+- **Branch**: `feat/bootcamp-phase-two` from current `origin/main`; local `main` has not been moved.
+- **Next step**: Finish batch implementation, installed-wheel verification, full quality checks and submission preparation, then push and open a documented PR.
+- **Result**: The academic contract reconciles the challenge with the approved `.specs/` inputs; it adds no database schema or server endpoint.
+- **Authorization**: Implementation, local commits and pushes are authorized for Phase 2. Merge, deployment and real-database operations are not.
 - **External checks**: Actual Ubuntu interpreter/lock and Tailscale access remain pending; a passing local suite does not claim target-host or private-access verification.
 
 ## Open questions
