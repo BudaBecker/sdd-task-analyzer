@@ -49,6 +49,15 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 - **Date**: 2026-10-16.
 - **Status**: active.
 
+### AD-006
+
+- **Decision**: Retain `.specs/` and `docs/product/requirements.md` as the authoritative Phase 1 sources; the required Google Docs URL is a submission link only. Keep the approved batch signature, English input fields and Portuguese output keys, with explicit terminology mapping and Phase 2 Given/When/Then examples. The academic-only exception includes explicit boolean priority/group means, numeric `0.0` for empty averages/rates, explicit zone and validated deleted records; REQ-023's deadline-window average is excluded. Python remains 3.13+, satisfying the brief's 3.11+ floor. Non-iterable collections and zone-construction `OSError` raise `TaskValidationError`, while errors consuming an iterable propagate. Windows trailing-space zone acceptance remains a known shared limitation. The user reviews and merges PR #4 into `main`, retains the branch, and supplies the required Docs/video links; the final PDF follows the merge and uses `main` links.
+- **Reason**: The Phase 2 review records DEC-01 through DEC-05 and DEC-09 to make contract provenance, the academic exception, validation boundaries and final submission sequence explicit.
+- **Trade-off**: Keep the product requirements and server unchanged while documenting the academic boundary and requiring the public default branch to contain the delivery before submission.
+- **Scope**: Phase 2 review corrections and submission preparation; no agent merge, deployment or real-database operations. Server zone validation belongs to a separate `fix/` follow-up.
+- **Date**: 2026-10-16.
+- **Status**: active.
+
 ## Handoff
 
 - **Work**: Phase 2 batch analysis implemented. Delivery 1B is merged in GitHub PR #1. The original server contracts and 487 regression cases are preserved.

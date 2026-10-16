@@ -5,7 +5,9 @@
 Implement the Bootcamp III intermediate challenge as a read-only Python batch
 function, `analyze_tasks`, and `TaskValidationError` in `src/task_analyzer.py`.
 The user authorized implementation, local commits and pushes on 2026-10-16 and
-identified `.specs/` as the Phase 1 source. Preserve the existing
+identified `.specs/` and `docs/product/requirements.md` as the authoritative
+Phase 1 sources. The Phase 1 Google Docs URL is a required submission link only;
+its contents are not reimported or reconciled. Preserve the existing
 [1A](../.specs/features/persistent-task-creation-editing/spec.md) and
 [1B](../.specs/features/task-lifecycle-deletion/spec.md) contracts and identifiers.
 
@@ -21,6 +23,18 @@ existing task model, fixed configured zone and API; its metrics endpoint and
 desktop dashboard are not implemented by this delivery. In particular, an
 explicit input priority is not automatic product prioritization, and numeric
 batch results do not change the dashboard's N/A presentation rule.
+The deadline-window percentage average from REQ-023 is outside this batch
+interface. Python 3.13+ (AD-003) satisfies the brief's Python 3.11+ minimum.
+
+### Brief terminology
+
+| Brief | Batch contract |
+| --- | --- |
+| `data_criacao` | `Task.created_at` |
+| `data_conclusao` | `Task.completed_at` (`None` means pending) |
+| `data_conclusao < data_criacao` | Scenario 2 raises `TaskValidationError`. |
+| "por prioridade" | `Task.priority: bool`; `priority`/`non_priority` groups in `tempo_medio_conclusao_horas_por_prioridade`. |
+| Acceptance scenarios in Dado-Quando-Então | Scenarios 1 and 2 use Given/When/Then. |
 
 ## Input and output contract
 
@@ -41,6 +55,11 @@ mutation. Task identity, titles and observations are irrelevant to this input.
 All records, including deleted records, are validated. Invalid record types,
 timestamps, calendar deadlines, flags or zones raise `TaskValidationError`.
 Completion before creation is rejected; equal timestamps are valid.
+A non-iterable collection, such as `None` or `5`, raises `TaskValidationError`.
+Only failure to obtain an iterator is translated; errors raised while consuming
+the caller's iterable propagate unchanged. `OSError` while constructing the
+product zone is translated to `TaskValidationError`, including directory keys
+that raise `PermissionError` on Windows.
 
 The result is a dictionary with these exact keys (Portuguese names are the
 external identifiers required by the challenge; code and documentation are English):
@@ -98,6 +117,7 @@ completion field, with no partial result or input mutation.
   creation and latest completion, as required by REQ-025 and TLD-16/TLD-23.
 - Preserve PCE-49/PCE-50's ambiguous/nonexistent midnight and skipped-date rules.
 - Reject naive instants, invalid zones, malformed records and invalid date bounds.
+- Preserve multi-day and sub-second duration precision without rounding means.
 
 ## Steps and verification
 
@@ -109,5 +129,10 @@ completion field, with no partial result or input mutation.
 
 ## Open questions
 
+- Windows may accept a zone key with trailing spaces; this known limitation is
+  shared with the server. The server's zone-validation follow-up is separate.
+- Before final submission, the user reviews PR #4 in GitHub and merges it into
+  `main`, retaining the feature branch. Generate the final PDF after the merge,
+  using `main` links and the required Phase 1 Google Docs URL.
 - The user must record the required five-minute video with visible camera/audio
   and provide its YouTube URL before final submission.

@@ -18,6 +18,9 @@ This document defines the intended outcomes, MVP boundary, component responsibil
 
 The MVP depends on server access. Product accounts/authentication, installation management, recovery, cloud backup, synchronization, offline operation, multiple-machine use, persistent local drafts, reminders/notifications, automatic priority, and priority-grouped metrics are outside its boundary. These and other future capabilities are owned by the [Backlog](backlog.md). Server persistence does not imply a separate backup or synchronization feature.
 
+Priority-grouped metrics remain outside the product MVP, except for the explicit
+input and grouped means in the separately approved [academic batch interface](../../specs/task_analyzer_spec.md).
+
 ## Component responsibilities
 
 | Component | Responsibility |
