@@ -58,14 +58,23 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 - **Date**: 2026-10-16.
 - **Status**: active.
 
+### AD-007
+
+- **Decision**: Merge the Phase 2 delivery, delete incorporated local/remote branches and synchronize on `main`, using `main` links in active guidance and the draft report. Keep the commit and PR history. Merge authorization is not evidence of a human GitHub review.
+- **Reason**: On 2026-10-16 the user explicitly requested the assistant to merge all work, delete merged branches and update local/remote state. This supersedes AD-006's user-only merge sequence and branch-retention instruction.
+- **Trade-off**: A single shared branch simplifies navigation; retained PR/commit history supplies the delivery provenance after branch cleanup.
+- **Scope**: Repository integration, cleanup and documentation synchronization. Deployment and real-database operations remain outside authorization.
+- **Date**: 2026-10-16.
+- **Status**: active.
+
 ## Handoff
 
 - **Work**: Phase 2 batch analysis and independent-review corrections implemented: exact rate arithmetic, specific errors for non-iterable collections/zone OSError, stronger duration evidence and corrected submission/governance documentation. The original server contracts and 487 regression cases are preserved.
-- **Branch**: `feat/bootcamp-phase-two` from current `origin/main`; local `main` has not been moved.
-- **Next step**: The user records their own review/comment in [PR #4](https://github.com/BudaBecker/sdd-task-analyzer/pull/4), merges into `main` and retains the branch. Then verify the default-branch tree and generate the final PDF using `main` links, required Phase 1 Docs/YouTube URLs and actual screenshots. The independent review does not count as human review. Use the [submission guide](../docs/phase-two/submission.md).
+- **Branch**: `main` is the shared branch. [PR #4](https://github.com/BudaBecker/sdd-task-analyzer/pull/4) merged as `58d09ed`; incorporated feature branches were deleted under the user's later instruction. Post-merge documentation uses a short-lived `docs/` branch and the same merge/cleanup procedure.
+- **Next step**: The user supplies their own GitHub review/comment evidence, required Phase 1 Docs/YouTube URLs, actual screenshots and academic identification before the final PDF/submission. The code and required tree are on `main`; active links target it. The independent review and merge authorization do not count as a recorded human review. Use the [submission guide](../docs/phase-two/submission.md).
 - **Result**: 523 tests passed (35 harness cases, 487 server cases and the installed-wheel batch check), plus Ruff, strict mypy, dependency compatibility and source/wheel builds. Mutation checks detect day loss, mean rounding and second truncation. Two third-party deprecation warnings remain. The PDF is still a draft; no schema change or server endpoint was added.
 - **README**: Clarified fresh checkout, executable batch example, first-time database creation versus daily API startup/restart, API docs and focused/full test commands. Verified the batch example and API startup/restart using only a disposable temporary database; all 523 tests and README quality checks passed again.
-- **Authorization**: Implementation, local commits and pushes are authorized for Phase 2. Merge, deployment and real-database operations are not.
+- **Authorization**: Implementation, commits, pushes, merging the delivery and deleting incorporated branches are authorized. Deployment and real-database operations are not.
 - **External checks**: Actual Ubuntu interpreter/lock and Tailscale access remain pending; a passing local suite does not claim target-host or private-access verification.
 - **Follow-up**: In a separate `fix/` branch, handle zone-construction `OSError` in the server's `_confirm_known_zone`; it is unchanged here. Windows trailing-space zone acceptance remains a known limitation shared by batch and server.
 

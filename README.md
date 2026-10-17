@@ -16,10 +16,9 @@ Windows. For a fresh checkout:
 ```powershell
 git clone https://github.com/BudaBecker/sdd-task-analyzer.git
 cd sdd-task-analyzer
-git switch feat/bootcamp-phase-two
 ```
 
-Until PR #4 is merged, the Phase 2 files are on `feat/bootcamp-phase-two`.
+The Phase 2 delivery is merged into the default `main` branch.
 For an existing checkout, open a terminal in its repository root. Install the
 project and development tools:
 

@@ -28,7 +28,10 @@ signature was already present there.
 ## Evidence and publication
 
 The user authorized commits and pushes for this delivery on 2026-10-16. Open a
-documented PR for review; merge and deployment remain separately authorized.
+documented PR for review. The user subsequently authorized merging the delivery
+and deleting incorporated branches on the same date; PR #4 is merged and its
+branch was removed. This does not establish a human GitHub review. Deployment
+and real-database operations still require separate authorization.
 Do not fabricate screenshots, human approval, video URLs or submission status.
 Export `requirements.txt` from `uv.lock`; it is not a second dependency source.
 

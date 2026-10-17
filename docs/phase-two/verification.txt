@@ -51,7 +51,13 @@ README "Without uv" installation route
   35 passed in 0.09s. No uv command was used inside that installation route.
 
 Limits: actual Ubuntu interpreter/lock, Tailscale access, Windows desktop UI,
-human PR review/merge, terminal screenshot, required Docs/YouTube links and
+human PR review, terminal screenshot, required Docs/YouTube links and
 academic submission were not verified by these commands. Windows trailing-space
 zone acceptance remains a known shared limitation; the server's zone OSError
 handling needs a separate fix. No real database was initialized/modified.
+
+Repository integration - 2026-10-16 (America/Sao_Paulo)
+  PR #4 merged into main as 58d09ed under the user's explicit instruction.
+  Verified the required README, context, requirements, spec, harness and module
+  paths on main. Incorporated feature branches were removed as requested.
+  No human GitHub review/comment was present when the merge was performed.
