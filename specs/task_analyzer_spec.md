@@ -131,8 +131,9 @@ completion field, with no partial result or input mutation.
 
 - Windows may accept a zone key with trailing spaces; this known limitation is
   shared with the server. The server's zone-validation follow-up is separate.
-- Before final submission, the user reviews PR #4 in GitHub and merges it into
-  `main`, retaining the feature branch. Generate the final PDF after the merge,
-  using `main` links and the required Phase 1 Google Docs URL.
+- PR #4 is merged into `main`; its branch was removed under the user's later
+  explicit authorization. Use `main` links and the required Phase 1 Google Docs
+  URL in the final PDF. A human GitHub review/comment remains submission evidence
+  to provide; merge authorization does not replace it.
 - The user must record the required five-minute video with visible camera/audio
   and provide its YouTube URL before final submission.
