@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "task-analyzer-server"
 version = "0.1.0"
-description = "Task Analyzer server: persistent task creation and editing."
+description = "Task Analyzer server and read-only batch productivity analysis."
 requires-python = ">=3.13"
 dependencies = [
     "fastapi",
@@ -19,7 +19,8 @@ dependencies = [
 dev = ["pytest", "httpx", "ruff", "mypy", "setuptools", "build"]
 
 [tool.setuptools]
-package-dir = { "" = "src/task-analyzer-server" }
+package-dir = { "" = "src", task_analyzer_server = "src/task-analyzer-server/task_analyzer_server" }
+py-modules = ["task_analyzer"]
 
 [tool.setuptools.packages.find]
 where = ["src/task-analyzer-server"]
@@ -37,13 +38,13 @@ extend-exclude = [".ai"]
 select = ["E", "F", "I"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["task_analyzer_server"]
+known-first-party = ["task_analyzer", "task_analyzer_server"]
 
 [tool.mypy]
 python_version = "3.13"
 strict = true
-files = ["src/task-analyzer-server/task_analyzer_server"]
+files = ["src/task-analyzer-server/task_analyzer_server", "src/task_analyzer.py"]
 exclude = "^\\.ai/"
 
 [tool.pytest.ini_options]
-testpaths = ["tests/server"]
+testpaths = ["tests"]

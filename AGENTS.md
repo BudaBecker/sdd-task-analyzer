@@ -2,11 +2,12 @@
 
 ## Project and scope
 
-Task Analyzer is a personal learning and portfolio project. Prefer understandable code and a small development workflow. New features are paused during the approved simplification.
+Task Analyzer is a personal learning and portfolio project. Prefer understandable code and a small development workflow. Simplification is complete. The user authorized the Bootcamp III Phase 2 batch-analysis delivery on 2026-10-16; unrelated features remain outside this work.
 
 - All repository artifacts are in English.
 - Python 3.13+, FastAPI, SQLite and private Tailscale access remain the approved stack. Use uv for dependencies and the local environment.
 - [Requirements](docs/product/requirements.md) and [scope](docs/product/scope.md) define behavior. Backlog ideas, including a possible PostgreSQL migration, are not implementation requirements.
+- [Phase 2 batch analysis](specs/task_analyzer_spec.md) defines the separately authorized academic interface; its explicit priority input and numeric empty averages do not change the server model or desktop presentation rules.
 - Do not add architectural layers, frameworks or capabilities for hypothetical future needs.
 
 ## Source of truth and workflow

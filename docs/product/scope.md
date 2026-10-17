@@ -18,6 +18,9 @@ This document defines the intended outcomes, MVP boundary, component responsibil
 
 The MVP depends on server access. Product accounts/authentication, installation management, recovery, cloud backup, synchronization, offline operation, multiple-machine use, persistent local drafts, reminders/notifications, automatic priority, and priority-grouped metrics are outside its boundary. These and other future capabilities are owned by the [Backlog](backlog.md). Server persistence does not imply a separate backup or synchronization feature.
 
+Priority-grouped metrics remain outside the product MVP, except for the explicit
+input and grouped means in the separately approved [academic batch interface](../../specs/task_analyzer_spec.md).
+
 ## Component responsibilities
 
 | Component | Responsibility |
@@ -61,7 +64,7 @@ This is a personal learning and portfolio project. Favor a development workflow 
 | Deadline emphasis / productivity analysis | Stable lifecycle, time and eligibility contracts; these two areas may be designed independently. |
 | Windows task interaction / dashboard | Corresponding server contracts plus client setup, refresh and feedback decisions. |
 
-Contract dependencies do not require finishing implementation before specifying dependent behavior. New features are currently paused. Detailed interactions, formulas, refresh timing and Windows acceptance scenarios remain in Requirements.
+Contract dependencies do not require finishing implementation before specifying dependent behavior. The separately approved [Bootcamp III Phase 2 batch interface](../../specs/task_analyzer_spec.md) provides the academic analysis exercise without changing this MVP's server/client boundary. Further product features require their own specifications. Detailed interactions, formulas, refresh timing and Windows acceptance scenarios remain in Requirements.
 
 ## Open questions
 

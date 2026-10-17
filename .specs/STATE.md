@@ -40,14 +40,34 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 - **Date**: 2026-09-14.
 - **Status**: active.
 
+### AD-005
+
+- **Decision**: Deliver the Bootcamp III Phase 2 batch interface in `src/task_analyzer.py`, governed by [its contract](../specs/task_analyzer_spec.md) and [context rules](../CONTEXT_RULES.md). Reuse the approved time rules. Course-only explicit priority grouping and numeric empty averages stay in the batch interface, without changing server persistence or desktop presentation contracts.
+- **Reason**: The user authorized executing the Phase 2 gap assessment, commits and pushes on 2026-10-16, and identified `.specs/` as the Phase 1 source. Its existing feature contracts remain authoritative; the course's additional function boundary is documented explicitly.
+- **Trade-off**: A batch interface satisfies the academic exercise without introducing priority management into the product or claiming a metrics API exists.
+- **Scope**: Phase 2 implementation, harness, packaging and submission preparation. Merge, deployment and real-database operations remain outside authorization.
+- **Date**: 2026-10-16.
+- **Status**: active.
+
+### AD-006
+
+- **Decision**: Retain `.specs/` and `docs/product/requirements.md` as the authoritative Phase 1 sources; the required Google Docs URL is a submission link only. Keep the approved batch signature, English input fields and Portuguese output keys, with explicit terminology mapping and Phase 2 Given/When/Then examples. The academic-only exception includes explicit boolean priority/group means, numeric `0.0` for empty averages/rates, explicit zone and validated deleted records; REQ-023's deadline-window average is excluded. Python remains 3.13+, satisfying the brief's 3.11+ floor. Non-iterable collections and zone-construction `OSError` raise `TaskValidationError`, while errors consuming an iterable propagate. Windows trailing-space zone acceptance remains a known shared limitation. The user reviews and merges PR #4 into `main`, retains the branch, and supplies the required Docs/video links; the final PDF follows the merge and uses `main` links.
+- **Reason**: The Phase 2 review records DEC-01 through DEC-05 and DEC-09 to make contract provenance, the academic exception, validation boundaries and final submission sequence explicit.
+- **Trade-off**: Keep the product requirements and server unchanged while documenting the academic boundary and requiring the public default branch to contain the delivery before submission.
+- **Scope**: Phase 2 review corrections and submission preparation; no agent merge, deployment or real-database operations. Server zone validation belongs to a separate `fix/` follow-up.
+- **Date**: 2026-10-16.
+- **Status**: active.
+
 ## Handoff
 
-- **Work**: Delivery 1B implemented against its approved [specification](features/task-lifecycle-deletion/spec.md) and [Design delta](features/task-lifecycle-deletion/design.md): completion, completed-observation editing, reopening and deletion.
-- **Branch**: `docs/task-lifecycle-deletion` from published `main`.
-- **Next step**: Review the delivered lifecycle commands, then choose the next feature. Deadline emphasis and productivity analysis are unstarted, and the Windows client remains undecided.
-- **Result**: The four commands reuse the 1A envelope, `BEGIN IMMEDIATE` transaction and operation ledger; no schema change or migration was needed. The suite grew from 393 to 487 cases and the README quality and build checks pass.
-- **Authorization**: The 1B implementation and its local commits are authorized. No push, merge or deployment is.
+- **Work**: Phase 2 batch analysis and independent-review corrections implemented: exact rate arithmetic, specific errors for non-iterable collections/zone OSError, stronger duration evidence and corrected submission/governance documentation. The original server contracts and 487 regression cases are preserved.
+- **Branch**: `feat/bootcamp-phase-two` from current `origin/main`; local `main` has not been moved.
+- **Next step**: The user records their own review/comment in [PR #4](https://github.com/BudaBecker/sdd-task-analyzer/pull/4), merges into `main` and retains the branch. Then verify the default-branch tree and generate the final PDF using `main` links, required Phase 1 Docs/YouTube URLs and actual screenshots. The independent review does not count as human review. Use the [submission guide](../docs/phase-two/submission.md).
+- **Result**: 523 tests passed (35 harness cases, 487 server cases and the installed-wheel batch check), plus Ruff, strict mypy, dependency compatibility and source/wheel builds. Mutation checks detect day loss, mean rounding and second truncation. Two third-party deprecation warnings remain. The PDF is still a draft; no schema change or server endpoint was added.
+- **README**: Clarified fresh checkout, executable batch example, first-time database creation versus daily API startup/restart, API docs and focused/full test commands. Verified the batch example and API startup/restart using only a disposable temporary database; all 523 tests and README quality checks passed again.
+- **Authorization**: Implementation, local commits and pushes are authorized for Phase 2. Merge, deployment and real-database operations are not.
 - **External checks**: Actual Ubuntu interpreter/lock and Tailscale access remain pending; a passing local suite does not claim target-host or private-access verification.
+- **Follow-up**: In a separate `fix/` branch, handle zone-construction `OSError` in the server's `_confirm_known_zone`; it is unchanged here. Windows trailing-space zone acceptance remains a known limitation shared by batch and server.
 
 ## Open questions
 
