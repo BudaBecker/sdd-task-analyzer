@@ -67,16 +67,23 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 - **Date**: 2026-10-16.
 - **Status**: active.
 
+### AD-008
+
+- **Decision**: Package the server in a non-root Python 3.13 container and use GitHub Actions for continuous integration and delivery to GitHub Container Registry. CI runs the documented locked-environment checks, package build and container build for pull requests and branch pushes; successful `main` pushes publish immutable SHA and `latest` image tags.
+- **Reason**: The user authorized a simple containerization and GitHub CI/CD flow on 2026-10-25 while target-host deployment remains undecided.
+- **Trade-off**: Publishing to GHCR supplies a deployable artifact without inventing an unapproved target rollout. Container startup deliberately requires an existing mounted SQLite file, leaving initialization and deployment as explicit operations.
+- **Scope**: `Dockerfile`, Compose development/run configuration, workflow and deployment guidance. It does not alter server behavior, initialize a real database, expose the API publicly, or automate target-host changes.
+- **Date**: 2026-10-25.
+- **Status**: active.
+
 ## Handoff
 
-- **Work**: Phase 2 batch analysis and independent-review corrections implemented: exact rate arithmetic, specific errors for non-iterable collections/zone OSError, stronger duration evidence and corrected submission/governance documentation. The original server contracts and 487 regression cases are preserved.
-- **Branch**: `main` is the shared branch. [PR #4](https://github.com/BudaBecker/sdd-task-analyzer/pull/4) merged as `58d09ed`; incorporated feature branches were deleted under the user's later instruction. Post-merge documentation uses a short-lived `docs/` branch and the same merge/cleanup procedure.
-- **Next step**: The user supplies their own GitHub review/comment evidence, required Phase 1 Docs/YouTube URLs, actual screenshots and academic identification before the final PDF/submission. The code and required tree are on `main`; active links target it. The independent review and merge authorization do not count as a recorded human review. Use the [submission guide](../docs/phase-two/submission.md).
-- **Result**: 523 tests passed (35 harness cases, 487 server cases and the installed-wheel batch check), plus Ruff, strict mypy, dependency compatibility and source/wheel builds. Mutation checks detect day loss, mean rounding and second truncation. Two third-party deprecation warnings remain. The PDF is still a draft; no schema change or server endpoint was added.
-- **README**: Clarified fresh checkout, executable batch example, first-time database creation versus daily API startup/restart, API docs and focused/full test commands. Verified the batch example and API startup/restart using only a disposable temporary database; all 523 tests and README quality checks passed again.
-- **Authorization**: Implementation, commits, pushes, merging the delivery and deleting incorporated branches are authorized. Deployment and real-database operations are not.
-- **External checks**: Actual Ubuntu interpreter/lock and Tailscale access remain pending; a passing local suite does not claim target-host or private-access verification.
-- **Follow-up**: In a separate `fix/` branch, handle zone-construction `OSError` in the server's `_confirm_known_zone`; it is unchanged here. Windows trailing-space zone acceptance remains a known limitation shared by batch and server.
+- **Work**: Containerization and GitHub CI/CD implemented on `feat/container-ci`: non-root Python 3.13 image, loopback-only Compose configuration, documented explicit initialization, and CI/registry publishing workflow. No server contract or database behavior changed.
+- **Branch**: `feat/container-ci`, pending validation, commit, push and PR merge under the user's standing authorization.
+- **Result**: Docker Compose configuration and local image build passed. Ruff format/check, strict mypy, 523 tests, `uv pip check`, source/wheel build and diff whitespace validation passed; the suite retains two third-party deprecation warnings.
+- **Authorization**: Implementation, commits, pushes, PR merge and incorporated-branch deletion are authorized. Deployment, real-database operations and target-host changes are not.
+- **External checks**: The initial workflow and GHCR publication must run on GitHub after push. Actual Ubuntu/container-runtime compatibility, registry visibility and rollout remain unverified.
+- **Follow-up**: Handle the existing server zone-construction `OSError` in a separate `fix/` branch; it is unrelated to this delivery.
 
 ## Open questions
 

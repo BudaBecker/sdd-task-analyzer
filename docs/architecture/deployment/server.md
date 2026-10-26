@@ -2,6 +2,10 @@
 
 Target: the user's dedicated Ubuntu Server 26.04.1 LTS host, one Uvicorn worker on loopback and Tailscale Serve for private HTTPS. [Server design](../../../.specs/features/persistent-task-creation-editing/design.md) defines the contracts; [README](../../../README.md) owns local development commands.
 
+The repository also provides a container package and GitHub Container Registry
+delivery flow in [container and continuous delivery](container-and-ci.md). It
+does not authorize or automate deployment to this host.
+
 ## Authorization and prerequisites
 
 This procedure has not been run on the target. Deployment, account/service configuration and real database initialization require explicit authorization. Initialization is a separate step; preserve any existing state first.

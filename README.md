@@ -136,6 +136,17 @@ uv build
 
 The suite includes isolated SQLite, restart, concurrency and installed-wheel tests. It creates only disposable databases. Installed-wheel tests export runtime dependencies from `uv.lock` into a temporary requirements file and use uv outside the checkout.
 
+## Container and CI/CD
+
+The repository includes a non-root Python 3.13 container image and a Compose
+file that binds the API only to `127.0.0.1:8000`. Container startup deliberately
+does not create or migrate SQLite data. See [container and continuous delivery](docs/architecture/deployment/container-and-ci.md)
+for the authorized local initialization command, state-directory configuration,
+and the GitHub Actions flow. The workflow runs the quality checks, tests,
+package build and container build for every pull request and branch push;
+successful `main` pushes publish the image to GitHub Container Registry. It
+does not deploy to a host.
+
 ## Project guide
 
 - [Development instructions](AGENTS.md): the lightweight SDD workflow and safeguards.
@@ -144,6 +155,7 @@ The suite includes isolated SQLite, restart, concurrency and installed-wheel tes
 - [1A specification](.specs/features/persistent-task-creation-editing/spec.md) and [design](.specs/features/persistent-task-creation-editing/design.md): accepted behavior and server contracts.
 - [1B specification](.specs/features/task-lifecycle-deletion/spec.md) and [design](.specs/features/task-lifecycle-deletion/design.md): the task lifecycle and deletion delta.
 - [Deployment](docs/architecture/deployment/server.md): the separately authorized Ubuntu/Tailscale procedure.
+- [Container and CI/CD](docs/architecture/deployment/container-and-ci.md): local container use and GitHub delivery workflow.
 
 Server modules live in `src/task-analyzer-server/task_analyzer_server/`; server tests live in `tests/server/`. The course module is `src/task_analyzer.py`, its contract is `specs/task_analyzer_spec.md`, and its harness is `tests/test_harness.py`. Both modules ship in the same wheel. The bundled `.ai/skills/tlc-spec-driven/` is optional historical study material, not the active development workflow. Old plans and audit details remain available in Git at `8c68d6a`.
 
