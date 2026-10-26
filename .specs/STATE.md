@@ -78,11 +78,11 @@ Approved product inputs remain in [Requirements](../docs/product/requirements.md
 
 ## Handoff
 
-- **Work**: Containerization and GitHub CI/CD implemented on `feat/container-ci`: non-root Python 3.13 image, loopback-only Compose configuration, documented explicit initialization, and CI/registry publishing workflow. No server contract or database behavior changed.
-- **Branch**: `feat/container-ci`, pending validation, commit, push and PR merge under the user's standing authorization.
-- **Result**: Docker Compose configuration and local image build passed. Ruff format/check, strict mypy, 523 tests, `uv pip check`, source/wheel build and diff whitespace validation passed; the suite retains two third-party deprecation warnings.
+- **Work**: Containerization and GitHub CI/CD merged through [PR #6](https://github.com/BudaBecker/sdd-task-analyzer/pull/6) as `06ca7fd`: non-root Python 3.13 image, loopback-only Compose configuration, documented explicit initialization, and CI/registry publishing workflow. No server contract or database behavior changed.
+- **Branch**: `main` is synchronized with `origin/main`; the incorporated feature branch was deleted.
+- **Result**: Docker Compose configuration, local image build and non-root packaged-module import passed. Ruff format/check, strict mypy, 523 tests, `uv pip check`, source/wheel build and diff whitespace validation passed; the suite retains two third-party deprecation warnings. The merged GitHub run passed quality/container build and published the SHA and `latest` GHCR image tags.
 - **Authorization**: Implementation, commits, pushes, PR merge and incorporated-branch deletion are authorized. Deployment, real-database operations and target-host changes are not.
-- **External checks**: The initial workflow and GHCR publication must run on GitHub after push. Actual Ubuntu/container-runtime compatibility, registry visibility and rollout remain unverified.
+- **External checks**: GitHub Actions and GHCR publication completed successfully. Actual Ubuntu/container-runtime compatibility, registry visibility and rollout remain unverified.
 - **Follow-up**: Handle the existing server zone-construction `OSError` in a separate `fix/` branch; it is unrelated to this delivery.
 
 ## Open questions
