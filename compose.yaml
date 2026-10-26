@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    image: task-analyzer:local
+    environment:
+      TASK_ANALYZER_DATABASE_PATH: /var/lib/task-analyzer/tasks.sqlite3
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ${TASK_ANALYZER_STATE_DIR:-./.local}:/var/lib/task-analyzer
